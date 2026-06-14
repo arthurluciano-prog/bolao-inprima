@@ -86,17 +86,9 @@ export default function AdminPage() {
     }
   }
 
-  async function salvarTudo() {
+  async function salvarTudo(novosResultados: Record<string, string>) {
     setSalvandoTudo(true);
     setMsgGlobal('');
-
-    const novosResultados: Record<string, string> = {};
-    for (const jogo of JOGOS) {
-      const { g1, g2 } = gols[String(jogo.numero)] ?? { g1: '', g2: '' };
-      if (g1 !== '' && g2 !== '') {
-        novosResultados[String(jogo.numero)] = `${g1}x${g2}`;
-      }
-    }
 
     try {
       const res = await fetch('/api/admin/update-results', {
@@ -175,7 +167,14 @@ export default function AdminPage() {
             <p className="text-[11px] text-white/70">{apurados} de {JOGOS.length} jogos apurados</p>
           </div>
           <button
-            onClick={salvarTudo}
+            onClick={() => {
+              const snapshot: Record<string, string> = {};
+              for (const jogo of JOGOS) {
+                const { g1, g2 } = gols[String(jogo.numero)] ?? { g1: '', g2: '' };
+                if (g1 !== '' && g2 !== '') snapshot[String(jogo.numero)] = `${g1}x${g2}`;
+              }
+              void salvarTudo(snapshot);
+            }}
             disabled={salvandoTudo}
             className="flex items-center gap-2 rounded-card bg-accent px-4 py-2 text-sm font-semibold text-primary disabled:opacity-60"
           >
