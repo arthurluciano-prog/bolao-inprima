@@ -243,13 +243,13 @@ export default function AdminPage() {
 
                   {/* Input gols time 1 */}
                   <input
-                    type="number"
-                    min={0}
-                    max={99}
+                    type="text"
+                    inputMode="numeric"
                     value={g1}
                     onChange={(e) => setGol(jogo.numero, 'g1', e.target.value)}
                     onKeyDown={(e) => e.key === 'Enter' && salvarJogo(jogo.numero)}
                     placeholder="0"
+                    maxLength={2}
                     className={`h-11 w-12 rounded-card border text-center text-[18px] font-bold focus:outline-none focus:ring-2 ${
                       st === 'error' ? 'border-red-300 focus:ring-red-200' : 'border-gray-300 focus:border-primary focus:ring-primary/20'
                     }`}
@@ -259,13 +259,13 @@ export default function AdminPage() {
 
                   {/* Input gols time 2 */}
                   <input
-                    type="number"
-                    min={0}
-                    max={99}
+                    type="text"
+                    inputMode="numeric"
                     value={g2}
                     onChange={(e) => setGol(jogo.numero, 'g2', e.target.value)}
                     onKeyDown={(e) => e.key === 'Enter' && salvarJogo(jogo.numero)}
                     placeholder="0"
+                    maxLength={2}
                     className={`h-11 w-12 rounded-card border text-center text-[18px] font-bold focus:outline-none focus:ring-2 ${
                       st === 'error' ? 'border-red-300 focus:ring-red-200' : 'border-gray-300 focus:border-primary focus:ring-primary/20'
                     }`}
