@@ -18,28 +18,28 @@
     "grupo": "Grupo A",
     "time1": "R. Tcheca",
     "time2": "África do Sul",
-    "data": "15/jun"
+    "data": "18/jun"
   },
   {
     "numero": 4,
     "grupo": "Grupo A",
     "time1": "México",
     "time2": "Coreia do Sul",
-    "data": "15/jun"
+    "data": "18/jun"
   },
   {
     "numero": 5,
     "grupo": "Grupo A",
     "time1": "R. Tcheca",
     "time2": "México",
-    "data": "19/jun"
+    "data": "24/jun"
   },
   {
     "numero": 6,
     "grupo": "Grupo A",
     "time1": "África do Sul",
     "time2": "Coreia do Sul",
-    "data": "19/jun"
+    "data": "24/jun"
   },
   {
     "numero": 7,
@@ -53,35 +53,35 @@
     "grupo": "Grupo B",
     "time1": "Qatar",
     "time2": "Suíça",
-    "data": "12/jun"
+    "data": "13/jun"
   },
   {
     "numero": 9,
     "grupo": "Grupo B",
     "time1": "Suíça",
     "time2": "Bósnia",
-    "data": "16/jun"
+    "data": "18/jun"
   },
   {
     "numero": 10,
     "grupo": "Grupo B",
     "time1": "Canadá",
     "time2": "Qatar",
-    "data": "16/jun"
+    "data": "18/jun"
   },
   {
     "numero": 11,
     "grupo": "Grupo B",
     "time1": "Suíça",
     "time2": "Canadá",
-    "data": "20/jun"
+    "data": "24/jun"
   },
   {
     "numero": 12,
     "grupo": "Grupo B",
     "time1": "Bósnia",
     "time2": "Qatar",
-    "data": "20/jun"
+    "data": "24/jun"
   },
   {
     "numero": 13,
@@ -102,28 +102,28 @@
     "grupo": "Grupo C",
     "time1": "Escócia",
     "time2": "Marrocos",
-    "data": "17/jun"
+    "data": "19/jun"
   },
   {
     "numero": 16,
     "grupo": "Grupo C",
     "time1": "Brasil",
     "time2": "Haiti",
-    "data": "17/jun"
+    "data": "19/jun"
   },
   {
     "numero": 17,
     "grupo": "Grupo C",
     "time1": "Escócia",
     "time2": "Brasil",
-    "data": "21/jun"
+    "data": "24/jun"
   },
   {
     "numero": 18,
     "grupo": "Grupo C",
     "time1": "Marrocos",
     "time2": "Haiti",
-    "data": "21/jun"
+    "data": "24/jun"
   },
   {
     "numero": 19,
@@ -137,35 +137,35 @@
     "grupo": "Grupo D",
     "time1": "Austrália",
     "time2": "Turquia",
-    "data": "12/jun"
+    "data": "13/jun"
   },
   {
     "numero": 21,
     "grupo": "Grupo D",
     "time1": "Turquia",
     "time2": "Paraguai",
-    "data": "16/jun"
+    "data": "19/jun"
   },
   {
     "numero": 22,
     "grupo": "Grupo D",
     "time1": "EUA",
     "time2": "Austrália",
-    "data": "16/jun"
+    "data": "19/jun"
   },
   {
     "numero": 23,
     "grupo": "Grupo D",
     "time1": "Turquia",
     "time2": "EUA",
-    "data": "20/jun"
+    "data": "25/jun"
   },
   {
     "numero": 24,
     "grupo": "Grupo D",
     "time1": "Paraguai",
     "time2": "Austrália",
-    "data": "20/jun"
+    "data": "25/jun"
   },
   {
     "numero": 25,
@@ -186,28 +186,28 @@
     "grupo": "Grupo E",
     "time1": "Alemanha",
     "time2": "C. do Marfim",
-    "data": "18/jun"
+    "data": "20/jun"
   },
   {
     "numero": 28,
     "grupo": "Grupo E",
     "time1": "Equador",
     "time2": "Curaçao",
-    "data": "18/jun"
+    "data": "20/jun"
   },
   {
     "numero": 29,
     "grupo": "Grupo E",
     "time1": "Equador",
     "time2": "Alemanha",
-    "data": "22/jun"
+    "data": "25/jun"
   },
   {
     "numero": 30,
     "grupo": "Grupo E",
     "time1": "Curaçao",
     "time2": "C. do Marfim",
-    "data": "22/jun"
+    "data": "25/jun"
   },
   {
     "numero": 31,
@@ -228,28 +228,28 @@
     "grupo": "Grupo F",
     "time1": "Tunísia",
     "time2": "Japão",
-    "data": "18/jun"
+    "data": "20/jun"
   },
   {
     "numero": 34,
     "grupo": "Grupo F",
     "time1": "Holanda",
     "time2": "Suécia",
-    "data": "18/jun"
+    "data": "20/jun"
   },
   {
     "numero": 35,
     "grupo": "Grupo F",
     "time1": "Tunísia",
     "time2": "Holanda",
-    "data": "22/jun"
+    "data": "25/jun"
   },
   {
     "numero": 36,
     "grupo": "Grupo F",
     "time1": "Japão",
     "time2": "Suécia",
-    "data": "22/jun"
+    "data": "25/jun"
   },
   {
     "numero": 37,
@@ -270,28 +270,28 @@
     "grupo": "Grupo G",
     "time1": "Bélgica",
     "time2": "Irã",
-    "data": "19/jun"
+    "data": "21/jun"
   },
   {
     "numero": 40,
     "grupo": "Grupo G",
     "time1": "N. Zelândia",
     "time2": "Egito",
-    "data": "19/jun"
+    "data": "21/jun"
   },
   {
     "numero": 41,
     "grupo": "Grupo G",
     "time1": "N. Zelândia",
     "time2": "Bélgica",
-    "data": "23/jun"
+    "data": "26/jun"
   },
   {
     "numero": 42,
     "grupo": "Grupo G",
     "time1": "Egito",
     "time2": "Irã",
-    "data": "23/jun"
+    "data": "26/jun"
   },
   {
     "numero": 43,
@@ -312,112 +312,112 @@
     "grupo": "Grupo H",
     "time1": "Espanha",
     "time2": "A. Saudita",
-    "data": "19/jun"
+    "data": "21/jun"
   },
   {
     "numero": 46,
     "grupo": "Grupo H",
     "time1": "Uruguai",
     "time2": "Cabo Verde",
-    "data": "19/jun"
+    "data": "21/jun"
   },
   {
     "numero": 47,
     "grupo": "Grupo H",
     "time1": "Uruguai",
     "time2": "Espanha",
-    "data": "23/jun"
+    "data": "26/jun"
   },
   {
     "numero": 48,
     "grupo": "Grupo H",
     "time1": "Cabo Verde",
     "time2": "A. Saudita",
-    "data": "23/jun"
+    "data": "26/jun"
   },
   {
     "numero": 49,
     "grupo": "Grupo I",
     "time1": "França",
     "time2": "Senegal",
-    "data": "15/jun"
+    "data": "16/jun"
   },
   {
     "numero": 50,
     "grupo": "Grupo I",
     "time1": "Iraque",
     "time2": "Noruega",
-    "data": "15/jun"
+    "data": "16/jun"
   },
   {
     "numero": 51,
     "grupo": "Grupo I",
     "time1": "França",
     "time2": "Iraque",
-    "data": "19/jun"
+    "data": "22/jun"
   },
   {
     "numero": 52,
     "grupo": "Grupo I",
     "time1": "Noruega",
     "time2": "Senegal",
-    "data": "19/jun"
+    "data": "22/jun"
   },
   {
     "numero": 53,
     "grupo": "Grupo I",
     "time1": "Noruega",
     "time2": "França",
-    "data": "23/jun"
+    "data": "26/jun"
   },
   {
     "numero": 54,
     "grupo": "Grupo I",
     "time1": "Senegal",
     "time2": "Iraque",
-    "data": "23/jun"
+    "data": "26/jun"
   },
   {
     "numero": 55,
     "grupo": "Grupo J",
     "time1": "Argentina",
     "time2": "Argélia",
-    "data": "15/jun"
+    "data": "16/jun"
   },
   {
     "numero": 56,
     "grupo": "Grupo J",
     "time1": "Áustria",
     "time2": "Jordânia",
-    "data": "15/jun"
+    "data": "16/jun"
   },
   {
     "numero": 57,
     "grupo": "Grupo J",
     "time1": "Argentina",
     "time2": "Áustria",
-    "data": "19/jun"
+    "data": "22/jun"
   },
   {
     "numero": 58,
     "grupo": "Grupo J",
     "time1": "Jordânia",
     "time2": "Argélia",
-    "data": "19/jun"
+    "data": "22/jun"
   },
   {
     "numero": 59,
     "grupo": "Grupo J",
     "time1": "Jordânia",
     "time2": "Argentina",
-    "data": "23/jun"
+    "data": "27/jun"
   },
   {
     "numero": 60,
     "grupo": "Grupo J",
     "time1": "Argélia",
     "time2": "Áustria",
-    "data": "23/jun"
+    "data": "27/jun"
   },
   {
     "numero": 61,
@@ -438,28 +438,28 @@
     "grupo": "Grupo K",
     "time1": "Portugal",
     "time2": "Uzbequistão",
-    "data": "21/jun"
+    "data": "23/jun"
   },
   {
     "numero": 64,
     "grupo": "Grupo K",
     "time1": "Colômbia",
     "time2": "RD.Congo",
-    "data": "21/jun"
+    "data": "23/jun"
   },
   {
     "numero": 65,
     "grupo": "Grupo K",
     "time1": "Colômbia",
     "time2": "Portugal",
-    "data": "25/jun"
+    "data": "27/jun"
   },
   {
     "numero": 66,
     "grupo": "Grupo K",
     "time1": "RD.Congo",
     "time2": "Uzbequistão",
-    "data": "25/jun"
+    "data": "27/jun"
   },
   {
     "numero": 67,
@@ -480,27 +480,27 @@
     "grupo": "Grupo L",
     "time1": "Inglaterra",
     "time2": "Gana",
-    "data": "21/jun"
+    "data": "23/jun"
   },
   {
     "numero": 70,
     "grupo": "Grupo L",
     "time1": "Panamá",
     "time2": "Croácia",
-    "data": "21/jun"
+    "data": "23/jun"
   },
   {
     "numero": 71,
     "grupo": "Grupo L",
     "time1": "Panamá",
     "time2": "Inglaterra",
-    "data": "25/jun"
+    "data": "27/jun"
   },
   {
     "numero": 72,
     "grupo": "Grupo L",
     "time1": "Croácia",
     "time2": "Gana",
-    "data": "25/jun"
+    "data": "27/jun"
   }
 ]
