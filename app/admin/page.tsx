@@ -39,16 +39,14 @@ export default function AdminPage() {
   }
 
   function handleInput(numero: number, valor: string) {
-    // Aceita apenas formato NxN, N-N ou números
-    const sanitizado = valor.replace(/[^0-9x\-]/gi, '').toLowerCase();
-    setInputs((prev) => ({ ...prev, [numero]: sanitizado }));
-    // Limpa status ao editar
+    setInputs((prev) => ({ ...prev, [numero]: valor }));
     setStatus((prev) => ({ ...prev, [numero]: 'idle' }));
   }
 
   function validarPlacar(valor: string): string | null {
-    if (!valor.trim()) return null; // vazio = remover resultado
-    const match = valor.match(/^(\d+)[x\-](\d+)$/);
+    const trimmed = (valor ?? '').trim();
+    if (!trimmed) return null;
+    const match = trimmed.match(/^(\d+)\s*[xX\-]\s*(\d+)$/);
     if (!match) return null;
     return `${match[1]}x${match[2]}`;
   }
