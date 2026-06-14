@@ -98,13 +98,25 @@ export function getProximoJogo(): Jogo | null {
   return null;
 }
 
+const MONTH_NUM: Record<string, number> = {
+  jan: 1, fev: 2, mar: 3, abr: 4, mai: 5, jun: 6,
+  jul: 7, ago: 8, set: 9, out: 10, nov: 11, dez: 12,
+};
+
+function dateSort(data: string): number {
+  const [day, month] = data.split('/');
+  return (MONTH_NUM[month] ?? 0) * 100 + parseInt(day, 10);
+}
+
 export function groupByDate(jogos: Jogo[]): { data: string; jogos: Jogo[] }[] {
   const map = new Map<string, Jogo[]>();
   for (const jogo of jogos) {
     if (!map.has(jogo.data)) map.set(jogo.data, []);
     map.get(jogo.data)!.push(jogo);
   }
-  return Array.from(map.entries()).map(([data, jogos]) => ({ data, jogos }));
+  return Array.from(map.entries())
+    .map(([data, jogos]) => ({ data, jogos }))
+    .sort((a, b) => dateSort(a.data) - dateSort(b.data));
 }
 
 export interface JogoComPontos {
