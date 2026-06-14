@@ -1,0 +1,40 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600&display=swap');
+
+:root {
+  --header-height: 56px;
+  --nav-height: 64px;
+}
+
+html,
+body {
+  font-family: 'Inter', sans-serif;
+  background-color: #f3f4f6;
+  color: #1c1c1e;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.font-display {
+  font-family: 'Bebas Neue', sans-serif;
+  letter-spacing: 0.5px;
+}
+
+/* Minimum touch target size */
+button,
+a.touch-target,
+.touch-target {
+  min-height: 44px;
+  min-width: 44px;
+}
+
+/* Smooth scroll for anchor jumps (e.g. "ir até minha posição") */
+html {
+  scroll-behavior: smooth;
+}
+
+.safe-bottom {
+  padding-bottom: env(safe-area-inset-bottom);
+}
