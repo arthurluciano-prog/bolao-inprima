@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { JOGOS, RESULTADOS } from '@/lib/scoring';
+import { JOGOS, RESULTADOS, groupByDate } from '@/lib/scoring';
 
 const SENHA_CORRETA = 'copa2026@';
 
@@ -140,6 +140,8 @@ export default function AdminPage() {
     return true;
   });
 
+  const gruposPorData = groupByDate(jogosFiltrados);
+
   // ── Tela de login ──────────────────────────────────────────────────────────
   if (!autenticado) {
     return (
@@ -236,9 +238,15 @@ export default function AdminPage() {
           ))}
         </div>
 
-        {/* Lista de jogos */}
-        <div className="flex flex-col gap-2">
-          {jogosFiltrados.map((jogo) => {
+        {/* Lista de jogos agrupada por data */}
+        <div className="flex flex-col gap-4">
+          {gruposPorData.map(({ data, jogos: jogosDoGrupo }) => (
+            <div key={data}>
+              <span className="font-display mb-2 inline-block rounded-card bg-primary px-3 py-1 text-[13px] text-accent">
+                {data}
+              </span>
+              <div className="flex flex-col gap-2">
+                {jogosDoGrupo.map((jogo) => {
             const key = String(jogo.numero);
             const st = status[key] ?? 'idle';
             const temResultado = !!resultados[key];
@@ -253,7 +261,7 @@ export default function AdminPage() {
               >
                 {/* Info do jogo */}
                 <p className="mb-2 text-[10px] font-medium uppercase text-gray-400">
-                  #{jogo.numero} · {jogo.grupo} · {jogo.data}
+                  #{jogo.numero} · {jogo.grupo}
                 </p>
 
                 {/* Layout: Time1 [gol] × [gol] Time2 [Salvar] */}
@@ -323,6 +331,9 @@ export default function AdminPage() {
               </div>
             );
           })}
+              </div>
+            </div>
+          ))}
         </div>
       </div>
     </div>
