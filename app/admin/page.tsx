@@ -30,15 +30,16 @@ export default function AdminPage() {
   const [gols, setGols] = useState<Record<string, Gols>>(() => {
     const init: Record<string, Gols> = {};
     for (const jogo of JOGOS) {
-      init[jogo.numero] = parsarResultado(RESULTADOS[String(jogo.numero)] ?? '');
+      init[String(jogo.numero)] = parsarResultado(RESULTADOS[String(jogo.numero)] ?? '');
     }
     return init;
   });
 
   function setGol(numero: number, campo: 'g1' | 'g2', valor: string) {
     const sanitizado = valor.replace(/\D/g, '').slice(0, 2);
-    setGols((prev) => ({ ...prev, [numero]: { ...prev[numero], [campo]: sanitizado } }));
-    setStatus((prev) => ({ ...prev, [numero]: 'idle' }));
+    const key = String(numero);
+    setGols((prev) => ({ ...prev, [key]: { ...prev[key], [campo]: sanitizado } }));
+    setStatus((prev) => ({ ...prev, [key]: 'idle' }));
     setMsgGlobal('');
   }
 
@@ -48,17 +49,16 @@ export default function AdminPage() {
     else setSenhaErro(true);
   }
 
-  async function salvarJogo(numero: number) {
-    const { g1, g2 } = gols[numero] ?? { g1: '', g2: '' };
+  async function salvarJogo(numero: number, g1: string, g2: string) {
     const ambosPreenchidos = g1 !== '' && g2 !== '';
     const ambosVazios = g1 === '' && g2 === '';
 
     if (!ambosPreenchidos && !ambosVazios) {
-      setStatus((prev) => ({ ...prev, [numero]: 'error' }));
+      setStatus((prev) => ({ ...prev, [String(numero)]: 'error' }));
       return;
     }
 
-    setStatus((prev) => ({ ...prev, [numero]: 'saving' }));
+    setStatus((prev) => ({ ...prev, [String(numero)]: 'saving' }));
 
     const novosResultados = { ...resultados };
     if (ambosPreenchidos) {
@@ -76,13 +76,13 @@ export default function AdminPage() {
 
       if (res.ok) {
         setResultados(novosResultados);
-        setStatus((prev) => ({ ...prev, [numero]: 'success' }));
-        setTimeout(() => setStatus((prev) => ({ ...prev, [numero]: 'idle' })), 2500);
+        setStatus((prev) => ({ ...prev, [String(numero)]: 'success' }));
+        setTimeout(() => setStatus((prev) => ({ ...prev, [String(numero)]: 'idle' })), 2500);
       } else {
-        setStatus((prev) => ({ ...prev, [numero]: 'error' }));
+        setStatus((prev) => ({ ...prev, [String(numero)]: 'error' }));
       }
     } catch {
-      setStatus((prev) => ({ ...prev, [numero]: 'error' }));
+      setStatus((prev) => ({ ...prev, [String(numero)]: 'error' }));
     }
   }
 
@@ -92,7 +92,7 @@ export default function AdminPage() {
 
     const novosResultados: Record<string, string> = {};
     for (const jogo of JOGOS) {
-      const { g1, g2 } = gols[jogo.numero] ?? { g1: '', g2: '' };
+      const { g1, g2 } = gols[String(jogo.numero)] ?? { g1: '', g2: '' };
       if (g1 !== '' && g2 !== '') {
         novosResultados[String(jogo.numero)] = `${g1}x${g2}`;
       }
@@ -218,9 +218,10 @@ export default function AdminPage() {
         {/* Lista de jogos */}
         <div className="flex flex-col gap-2">
           {jogosFiltrados.map((jogo) => {
-            const st = status[jogo.numero] ?? 'idle';
-            const temResultado = !!resultados[String(jogo.numero)];
-            const { g1, g2 } = gols[jogo.numero] ?? { g1: '', g2: '' };
+            const key = String(jogo.numero);
+            const st = status[key] ?? 'idle';
+            const temResultado = !!resultados[key];
+            const { g1, g2 } = gols[key] ?? { g1: '', g2: '' };
 
             return (
               <div
@@ -243,12 +244,10 @@ export default function AdminPage() {
 
                   {/* Input gols time 1 */}
                   <input
-                    type="text"
-                    inputMode="numeric"
+                    type="tel"
                     value={g1}
                     onChange={(e) => setGol(jogo.numero, 'g1', e.target.value)}
-                    onKeyDown={(e) => e.key === 'Enter' && salvarJogo(jogo.numero)}
-                    placeholder="0"
+                    onKeyDown={(e) => e.key === 'Enter' && salvarJogo(jogo.numero, g1, g2)}
                     maxLength={2}
                     className={`h-11 w-12 rounded-card border text-center text-[18px] font-bold focus:outline-none focus:ring-2 ${
                       st === 'error' ? 'border-red-300 focus:ring-red-200' : 'border-gray-300 focus:border-primary focus:ring-primary/20'
@@ -259,12 +258,10 @@ export default function AdminPage() {
 
                   {/* Input gols time 2 */}
                   <input
-                    type="text"
-                    inputMode="numeric"
+                    type="tel"
                     value={g2}
                     onChange={(e) => setGol(jogo.numero, 'g2', e.target.value)}
-                    onKeyDown={(e) => e.key === 'Enter' && salvarJogo(jogo.numero)}
-                    placeholder="0"
+                    onKeyDown={(e) => e.key === 'Enter' && salvarJogo(jogo.numero, g1, g2)}
                     maxLength={2}
                     className={`h-11 w-12 rounded-card border text-center text-[18px] font-bold focus:outline-none focus:ring-2 ${
                       st === 'error' ? 'border-red-300 focus:ring-red-200' : 'border-gray-300 focus:border-primary focus:ring-primary/20'
@@ -278,7 +275,7 @@ export default function AdminPage() {
 
                   {/* Botão Salvar */}
                   <button
-                    onClick={() => salvarJogo(jogo.numero)}
+                    onClick={() => salvarJogo(jogo.numero, g1, g2)}
                     disabled={st === 'saving'}
                     className={`h-11 shrink-0 rounded-card px-3 text-sm font-semibold transition-colors ${
                       st === 'success' ? 'bg-success-bg text-success-text'
