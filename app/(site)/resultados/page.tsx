@@ -21,13 +21,15 @@ export default function ResultadosPage() {
 
   return (
     <div className="flex flex-col gap-4">
+      {/* Cabeçalho */}
       <div>
-        <h1 className="font-display text-[22px] text-primary">Resultados</h1>
+        <h1 className="font-display text-[28px] text-primary">Resultados</h1>
         <p className="text-sm text-gray-500">
-          {apurados} de {JOGOS.length} jogos já apurados
+          {apurados} de {JOGOS.length} jogos apurados
         </p>
       </div>
 
+      {/* Filtros */}
       <div className="flex gap-2">
         {FILTERS.map((f) => (
           <button
@@ -44,24 +46,35 @@ export default function ResultadosPage() {
         ))}
       </div>
 
+      {/* Empty state */}
       {groups.length === 0 && (
-        <div className="rounded-card border border-gray-200 bg-white p-4 text-center text-sm text-gray-500">
-          {filter === 'Pendentes'
-            ? 'Todos os jogos já têm resultado!'
-            : 'Os jogos ainda não começaram — volte em breve!'}
+        <div className="rounded-card border border-gray-200 bg-white p-8 text-center">
+          <i
+            className="ti ti-calendar-off mb-2 block text-gray-300"
+            style={{ fontSize: '40px' }}
+          />
+          <p className="text-sm font-medium text-gray-500">
+            {filter === 'Encerrados'
+              ? 'Nenhum jogo apurado ainda'
+              : filter === 'Pendentes'
+              ? 'Todos os jogos já têm resultado!'
+              : 'Nenhum jogo encontrado'}
+          </p>
         </div>
       )}
 
+      {/* Lista por data */}
       {groups.map(({ data, jogos }) => {
         const done = jogos.filter((j) => getResultado(j.numero) !== null).length;
         return (
           <div key={data}>
-            <div className="mb-1 flex items-center gap-2">
-              <span className="font-display rounded-card bg-primary px-3 py-1 text-[12px] text-accent">
+            <div className="mb-1.5 flex items-center gap-2">
+              <span className="font-display rounded-card bg-primary px-3 py-1 text-[13px] text-accent">
                 {data}
               </span>
               <span className="text-[11px] text-gray-400">
-                {jogos.length} jogos{done > 0 ? ` · ${done} apurado${done > 1 ? 's' : ''}` : ''}
+                {jogos.length} jogo{jogos.length > 1 ? 's' : ''}
+                {done > 0 ? ` · ${done} apurado${done > 1 ? 's' : ''}` : ''}
               </span>
             </div>
             <div className="flex flex-col gap-1.5">
@@ -70,27 +83,42 @@ export default function ResultadosPage() {
                 return (
                   <div
                     key={jogo.numero}
-                    className={`flex items-center gap-2 rounded-card border p-2.5 text-[13px] ${
+                    className={`flex items-center gap-2 rounded-card border p-3 text-[13px] ${
                       resultado
-                        ? 'border-green-200 bg-green-50'
+                        ? 'border-success-border bg-success-bg'
                         : 'border-gray-200 bg-white'
                     }`}
                   >
-                    <span className="w-[52px] shrink-0 rounded-card border border-gray-200 bg-gray-50 px-1 py-0.5 text-center text-[10px] font-semibold text-gray-500">
-                      {jogo.grupo.replace('Grupo ', 'G. ')}
+                    {/* Grupo */}
+                    <span className="w-[50px] shrink-0 rounded border border-gray-200 bg-white/70 px-1 py-0.5 text-center text-[10px] font-semibold text-gray-500">
+                      {jogo.grupo.replace('Grupo ', 'G.')}
                     </span>
-                    <span className="flex-1 truncate font-medium text-gray-800">
+
+                    {/* Time 1 */}
+                    <span className="flex-1 truncate text-right text-[13px] font-medium text-gray-800">
                       {jogo.time1}
                     </span>
-                    <span className="font-display min-w-[52px] text-center text-[18px] text-primary">
+
+                    {/* Placar */}
+                    <span
+                      className={`font-display min-w-[56px] text-center text-[20px] ${
+                        resultado ? 'text-success-text' : 'text-gray-400'
+                      }`}
+                    >
                       {resultado ? `${resultado[0]} × ${resultado[1]}` : 'vs'}
                     </span>
-                    <span className="flex-1 truncate text-right font-medium text-gray-800">
+
+                    {/* Time 2 */}
+                    <span className="flex-1 truncate text-[13px] font-medium text-gray-800">
                       {jogo.time2}
                     </span>
-                    <span className="w-6 shrink-0 text-right text-[10px] text-gray-400">
-                      #{jogo.numero}
-                    </span>
+
+                    {/* Status */}
+                    {resultado ? (
+                      <i className="ti ti-circle-check shrink-0 text-success-text" style={{ fontSize: '16px' }} />
+                    ) : (
+                      <i className="ti ti-clock shrink-0 text-gray-300" style={{ fontSize: '16px' }} />
+                    )}
                   </div>
                 );
               })}

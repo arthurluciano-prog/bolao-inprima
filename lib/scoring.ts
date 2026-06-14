@@ -106,3 +106,25 @@ export function groupByDate(jogos: Jogo[]): { data: string; jogos: Jogo[] }[] {
   }
   return Array.from(map.entries()).map(([data, jogos]) => ({ data, jogos }));
 }
+
+export interface JogoComPontos {
+  jogo: Jogo;
+  palpite: string;
+  resultado: Placar;
+  outcome: 'exact' | 'win';
+  pontos: number;
+}
+
+export function getJogosComPontos(participant: string): JogoComPontos[] {
+  const result: JogoComPontos[] = [];
+  for (const jogo of JOGOS) {
+    const resultado = getResultado(jogo.numero);
+    if (!resultado) continue;
+    const palpite = PALPITES[participant][String(jogo.numero)];
+    const outcome = getOutcome(palpite, resultado);
+    if (outcome === 'exact' || outcome === 'win') {
+      result.push({ jogo, palpite, resultado, outcome, pontos: outcome === 'exact' ? 3 : 1 });
+    }
+  }
+  return result;
+}
