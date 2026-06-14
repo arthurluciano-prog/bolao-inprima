@@ -5,7 +5,7 @@ import { JOGOS, RESULTADOS } from '@/lib/scoring';
 
 const SENHA_CORRETA = 'copa2026@';
 
-type SaveStatus = 'idle' | 'saving' | 'success' | 'error';
+type SaveStatus = 'idle' | 'saving' | 'success' | 'validation-error' | 'api-error';
 
 interface Gols { g1: string; g2: string }
 
@@ -37,8 +37,13 @@ export default function AdminPage() {
 
   function setGol(numero: number, campo: 'g1' | 'g2', valor: string) {
     const sanitizado = valor.replace(/\D/g, '').slice(0, 2);
+    console.log(`[onChange ${campo}] jogo=${numero} valor_raw="${valor}" sanitizado="${sanitizado}"`);
     const key = String(numero);
-    setGols((prev) => ({ ...prev, [key]: { ...prev[key], [campo]: sanitizado } }));
+    setGols((prev) => {
+      const next = { ...prev, [key]: { ...prev[key], [campo]: sanitizado } };
+      console.log(`[setGols] jogo=${numero} novo estado:`, next[key]);
+      return next;
+    });
     setStatus((prev) => ({ ...prev, [key]: 'idle' }));
     setMsgGlobal('');
   }
@@ -53,11 +58,24 @@ export default function AdminPage() {
     const ambosPreenchidos = g1 !== '' && g2 !== '';
     const ambosVazios = g1 === '' && g2 === '';
 
+    console.log('[salvarJogo] entrada:', {
+      numero,
+      g1,
+      g2,
+      typeofG1: typeof g1,
+      typeofG2: typeof g2,
+      ambosPreenchidos,
+      ambosVazios,
+    });
+    console.log('[salvarJogo] estado completo gols:', gols);
+
     if (!ambosPreenchidos && !ambosVazios) {
-      setStatus((prev) => ({ ...prev, [String(numero)]: 'error' }));
+      console.log('[salvarJogo] ERRO de validação — apenas um campo preenchido');
+      setStatus((prev) => ({ ...prev, [String(numero)]: 'validation-error' }));
       return;
     }
 
+    console.log('[salvarJogo] validação OK, enviando para GitHub');
     setStatus((prev) => ({ ...prev, [String(numero)]: 'saving' }));
 
     const novosResultados = { ...resultados };
@@ -66,6 +84,7 @@ export default function AdminPage() {
     } else {
       delete novosResultados[String(numero)];
     }
+    console.log('[salvarJogo] novosResultados:', novosResultados);
 
     try {
       const res = await fetch('/api/admin/update-results', {
@@ -79,10 +98,13 @@ export default function AdminPage() {
         setStatus((prev) => ({ ...prev, [String(numero)]: 'success' }));
         setTimeout(() => setStatus((prev) => ({ ...prev, [String(numero)]: 'idle' })), 2500);
       } else {
-        setStatus((prev) => ({ ...prev, [String(numero)]: 'error' }));
+        const err = await res.json().catch(() => ({}));
+        console.log('[salvarJogo] API error:', res.status, err);
+        setStatus((prev) => ({ ...prev, [String(numero)]: 'api-error' }));
       }
-    } catch {
-      setStatus((prev) => ({ ...prev, [String(numero)]: 'error' }));
+    } catch (e) {
+      console.log('[salvarJogo] fetch error:', e);
+      setStatus((prev) => ({ ...prev, [String(numero)]: 'api-error' }));
     }
   }
 
@@ -249,7 +271,7 @@ export default function AdminPage() {
                     onKeyDown={(e) => e.key === 'Enter' && salvarJogo(jogo.numero, g1, g2)}
                     maxLength={2}
                     className={`h-11 w-12 rounded-card border text-center text-[18px] font-bold focus:outline-none focus:ring-2 ${
-                      st === 'error' ? 'border-red-300 focus:ring-red-200' : 'border-gray-300 focus:border-primary focus:ring-primary/20'
+                      st === 'validation-error' || st === 'api-error' ? 'border-red-300 focus:ring-red-200' : 'border-gray-300 focus:border-primary focus:ring-primary/20'
                     }`}
                   />
 
@@ -263,7 +285,7 @@ export default function AdminPage() {
                     onKeyDown={(e) => e.key === 'Enter' && salvarJogo(jogo.numero, g1, g2)}
                     maxLength={2}
                     className={`h-11 w-12 rounded-card border text-center text-[18px] font-bold focus:outline-none focus:ring-2 ${
-                      st === 'error' ? 'border-red-300 focus:ring-red-200' : 'border-gray-300 focus:border-primary focus:ring-primary/20'
+                      st === 'validation-error' || st === 'api-error' ? 'border-red-300 focus:ring-red-200' : 'border-gray-300 focus:border-primary focus:ring-primary/20'
                     }`}
                   />
 
@@ -277,20 +299,26 @@ export default function AdminPage() {
                     onClick={() => salvarJogo(jogo.numero, g1, g2)}
                     disabled={st === 'saving'}
                     className={`h-11 shrink-0 rounded-card px-3 text-sm font-semibold transition-colors ${
-                      st === 'success' ? 'bg-success-bg text-success-text'
-                      : st === 'error' ? 'bg-red-100 text-red-700'
-                      : st === 'saving' ? 'bg-gray-100 text-gray-400'
+                      st === 'success'          ? 'bg-success-bg text-success-text'
+                      : st === 'validation-error' || st === 'api-error' ? 'bg-red-100 text-red-700'
+                      : st === 'saving'         ? 'bg-gray-100 text-gray-400'
                       : 'bg-primary text-accent'
                     }`}
                   >
                     {st === 'saving' && <i className="ti ti-loader-2 animate-spin" />}
                     {st === 'success' && <i className="ti ti-check" />}
-                    {st === 'error' ? 'Erro' : st === 'success' ? 'Salvo!' : st === 'saving' ? '' : 'Salvar'}
+                    {st === 'validation-error' || st === 'api-error' ? 'Erro'
+                      : st === 'success' ? 'Salvo!'
+                      : st === 'saving' ? ''
+                      : 'Salvar'}
                   </button>
                 </div>
 
-                {st === 'error' && (
+                {st === 'validation-error' && (
                   <p className="mt-1 text-[11px] text-red-500">Preencha os dois campos ou deixe ambos vazios.</p>
+                )}
+                {st === 'api-error' && (
+                  <p className="mt-1 text-[11px] text-red-500">Erro ao salvar. Verifique a conexão e tente novamente.</p>
                 )}
               </div>
             );
