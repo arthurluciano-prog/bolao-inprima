@@ -1,0 +1,18 @@
+[
+  { "numero": 1,  "time1": "África do Sul",       "time2": "Canadá",                          "data": "28/jun" },
+  { "numero": 2,  "time1": "Brasil",               "time2": "Japão",                           "data": "29/jun" },
+  { "numero": 3,  "time1": "Alemanha",             "time2": "Paraguai",                        "data": "29/jun" },
+  { "numero": 4,  "time1": "Países Baixos",        "time2": "Marrocos",                        "data": "29/jun" },
+  { "numero": 5,  "time1": "Costa do Marfim",      "time2": "Noruega",                         "data": "30/jun" },
+  { "numero": 6,  "time1": "França",               "time2": "Suécia",                          "data": "30/jun" },
+  { "numero": 7,  "time1": "México",               "time2": "Equador",                         "data": "30/jun" },
+  { "numero": 8,  "time1": "Inglaterra",           "time2": "República Democrática do Congo",  "data": "01/jul" },
+  { "numero": 9,  "time1": "Bélgica",              "time2": "Senegal",                         "data": "01/jul" },
+  { "numero": 10, "time1": "Estados Unidos",       "time2": "Bósnia e Herzegovina",            "data": "01/jul" },
+  { "numero": 11, "time1": "Espanha",              "time2": "Áustria",                         "data": "02/jul" },
+  { "numero": 12, "time1": "Portugal",             "time2": "Croácia",                         "data": "02/jul" },
+  { "numero": 13, "time1": "Suíça",                "time2": "Argélia",                         "data": "02/jul" },
+  { "numero": 14, "time1": "Austrália",            "time2": "Egito",                           "data": "03/jul" },
+  { "numero": 15, "time1": "Argentina",            "time2": "Cabo Verde",                      "data": "03/jul" },
+  { "numero": 16, "time1": "Colômbia",             "time2": "Gana",                            "data": "03/jul" }
+]

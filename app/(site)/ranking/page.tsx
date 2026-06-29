@@ -23,7 +23,7 @@ export default function RankingPage() {
       <div className="flex flex-col gap-4">
         {/* Cabeçalho */}
         <div>
-          <h1 className="font-display text-[28px] text-primary">Ranking</h1>
+          <h1 className="font-display text-[28px] text-primary">Fase de Grupos</h1>
           <p className="text-sm text-gray-500">
             {apurados} de {JOGOS.length} jogos apurados · toque num participante para detalhar
           </p>

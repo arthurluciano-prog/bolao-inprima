@@ -4,11 +4,11 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 
 const ITEMS = [
-  { href: '/ranking',       label: 'Ranking',   icon: 'ti-trophy' },
+  { href: '/ranking',       label: 'Grupos',     icon: 'ti-trophy' },
   { href: '/resultados',    label: 'Resultados', icon: 'ti-calendar-event' },
-  { href: '/palpites',      label: 'Palpites',  icon: 'ti-clipboard-list' },
-  { href: '/classificacao', label: 'Classif.',  icon: 'ti-podium' },
-  { href: '/regras',        label: 'Regras',    icon: 'ti-info-circle' },
+  { href: '/palpites',      label: 'Palpites',   icon: 'ti-clipboard-list' },
+  { href: '/segunda-fase',  label: '2ª Fase',    icon: 'ti-sword' },
+  { href: '/regras',        label: 'Regras',     icon: 'ti-info-circle' },
 ];
 
 export default function BottomNav() {

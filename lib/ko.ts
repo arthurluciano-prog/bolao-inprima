@@ -28,7 +28,8 @@ export const KO_PHASES: { key: KOPhase; label: string; jogos: number }[] = [
   { key: 'final',   label: 'Final',            jogos: 1  },
 ];
 
-// Returns 0 until KO scoring model is approved
-export function calcKOPontos(_participant: string): number {
-  return 0;
+import { calcStatsKO } from '@/lib/scoring-ko';
+
+export function calcKOPontos(participant: string): number {
+  return calcStatsKO(participant).pontos;
 }
