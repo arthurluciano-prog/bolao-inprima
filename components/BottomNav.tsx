@@ -4,7 +4,6 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 
 const ITEMS = [
-  { href: '/ranking',       label: 'Grupos',     icon: 'ti-trophy' },
   { href: '/resultados',    label: 'Resultados', icon: 'ti-calendar-event' },
   { href: '/palpites',      label: 'Palpites',   icon: 'ti-clipboard-list' },
   { href: '/segunda-fase',  label: '2ª Fase',    icon: 'ti-sword' },
@@ -15,7 +14,7 @@ export default function BottomNav() {
   const pathname = usePathname();
 
   return (
-    <nav className="safe-bottom fixed bottom-0 inset-x-0 z-20 grid grid-cols-5 border-t border-gray-200 bg-white">
+    <nav className="safe-bottom fixed bottom-0 inset-x-0 z-20 grid grid-cols-4 border-t border-gray-200 bg-white">
       {ITEMS.map((item) => {
         const active = pathname === item.href;
         return (
