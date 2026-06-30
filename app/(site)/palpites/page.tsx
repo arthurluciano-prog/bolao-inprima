@@ -2,21 +2,20 @@
 
 import { useState } from 'react';
 import {
-  PALPITES,
-  PARTICIPANTS,
-  getResultado,
-  getOutcome,
-  calcStats,
-  groupByDate,
-  JOGOS,
-  type Outcome,
-} from '@/lib/scoring';
+  PALPITES_KO,
+  PARTICIPANTS_KO,
+  getResultadoKO,
+  calcStatsKO,
+  groupByDateKO,
+  JOGOS_KO,
+} from '@/lib/scoring-ko';
+import { getOutcome, type Outcome } from '@/lib/scoring';
 
 const OUTCOME_CONFIG: Record<Outcome, { bg: string; border: string; text: string; label: string }> = {
-  exact: { bg: 'bg-success-bg', border: 'border-success-border', text: 'text-success-text', label: '+3' },
-  win: { bg: 'bg-winner-bg', border: 'border-winner-border', text: 'text-winner-text', label: '+1' },
-  miss: { bg: 'bg-miss-bg', border: 'border-miss-border', text: 'text-miss-text', label: '0' },
-  pending: { bg: 'bg-pending-bg', border: 'border-pending-border', text: 'text-pending-text', label: '–' },
+  exact:   { bg: 'bg-success-bg',  border: 'border-success-border',  text: 'text-success-text',  label: '+3' },
+  win:     { bg: 'bg-winner-bg',   border: 'border-winner-border',   text: 'text-winner-text',   label: '+1' },
+  miss:    { bg: 'bg-miss-bg',     border: 'border-miss-border',     text: 'text-miss-text',     label: '0'  },
+  pending: { bg: 'bg-pending-bg',  border: 'border-pending-border',  text: 'text-pending-text',  label: '–'  },
 };
 
 const FILTERS = ['Todos', 'Encerrados', 'Pendentes'] as const;
@@ -26,19 +25,19 @@ export default function PalpitesPage() {
   const [participant, setParticipant] = useState('');
   const [filter, setFilter] = useState<Filter>('Todos');
 
-  let jogosFiltrados = JOGOS;
-  if (filter === 'Encerrados') jogosFiltrados = JOGOS.filter((j) => getResultado(j.numero) !== null);
-  if (filter === 'Pendentes') jogosFiltrados = JOGOS.filter((j) => getResultado(j.numero) === null);
+  let jogosFiltrados = JOGOS_KO;
+  if (filter === 'Encerrados') jogosFiltrados = JOGOS_KO.filter((j) => getResultadoKO(j.numero) !== null);
+  if (filter === 'Pendentes')  jogosFiltrados = JOGOS_KO.filter((j) => getResultadoKO(j.numero) === null);
 
-  const groups = groupByDate(jogosFiltrados);
-  const stats = participant ? calcStats(participant) : null;
+  const groups = groupByDateKO(jogosFiltrados);
+  const stats = participant ? calcStatsKO(participant) : null;
 
   return (
     <div className="flex flex-col gap-4">
       {/* Cabeçalho */}
       <div>
         <h1 className="font-display text-[28px] text-primary">Palpites</h1>
-        <p className="text-sm text-gray-500">Selecione um participante para ver os palpites</p>
+        <p className="text-sm text-gray-500">2ª fase · Selecione um participante</p>
       </div>
 
       {/* Dropdown de participante */}
@@ -49,10 +48,8 @@ export default function PalpitesPage() {
           className="w-full appearance-none rounded-card border border-gray-300 bg-white px-4 py-3 pr-10 text-sm font-medium text-gray-800 shadow-sm focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20"
         >
           <option value="">Escolha um participante...</option>
-          {PARTICIPANTS.map((p) => (
-            <option key={p} value={p}>
-              {p}
-            </option>
+          {PARTICIPANTS_KO.map((p) => (
+            <option key={p} value={p}>{p}</option>
           ))}
         </select>
         <i className="ti ti-chevron-down pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 text-gray-400" />
@@ -122,42 +119,35 @@ export default function PalpitesPage() {
             </span>
             <div className="flex flex-col gap-1.5">
               {jogos.map((jogo) => {
-                const palpite = PALPITES[participant][String(jogo.numero)];
-                const resultado = getResultado(jogo.numero);
-                const outcome = getOutcome(palpite, resultado);
+                const rawPalpite = PALPITES_KO[participant]?.[String(jogo.numero)];
+                const palpite = rawPalpite ?? '–';
+                const resultado = getResultadoKO(jogo.numero);
+                const outcome: Outcome = rawPalpite ? getOutcome(rawPalpite, resultado) : 'pending';
                 const cfg = OUTCOME_CONFIG[outcome];
                 return (
                   <div
                     key={jogo.numero}
                     className={`flex items-center gap-3 rounded-card border p-2.5 ${cfg.bg} ${cfg.border}`}
                   >
-                    {/* Badge de pontos */}
-                    <span
-                      className={`font-display w-8 shrink-0 text-center text-[16px] font-bold ${cfg.text}`}
-                    >
+                    <span className={`font-display w-8 shrink-0 text-center text-[16px] font-bold ${cfg.text}`}>
                       {cfg.label}
                     </span>
 
-                    {/* Info do jogo */}
                     <div className="flex-1 min-w-0">
-                      <p className="text-[10px] text-gray-400">{jogo.grupo}</p>
+                      <p className="text-[10px] text-gray-400">16 avos · #{jogo.numero}</p>
                       <p className="truncate text-[13px] font-semibold text-gray-800">
                         {jogo.time1} × {jogo.time2}
                       </p>
                       <p className="text-[11px] text-gray-600">
                         Palpite: <span className="font-semibold">{palpite}</span>
-                        {resultado && (
+                        {resultado && rawPalpite && (
                           <span className="text-gray-400">
                             {' '}· Real:{' '}
-                            <span className="font-semibold">
-                              {resultado[0]}×{resultado[1]}
-                            </span>
+                            <span className="font-semibold">{resultado[0]}×{resultado[1]}</span>
                           </span>
                         )}
                       </p>
                     </div>
-
-                    <span className="shrink-0 text-[10px] text-gray-400">#{jogo.numero}</span>
                   </div>
                 );
               })}
